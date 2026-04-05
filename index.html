@@ -19,13 +19,16 @@
             --blob-2: #4a0000;
             --blob-3: #660000;
             --accent-color: #ff1a1a;
-            --sub-card-bg: rgba(255, 255, 255, 0.05); /* Disesuaikan untuk efek kaca */
+            --sub-card-bg: rgba(255, 255, 255, 0.05); 
             --title-glow: linear-gradient(120deg, #ffffff 30%, #800000 50%, #ffffff 70%);
         }
 
         /* === RESET & BASE === */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
         body { background-color: var(--bg-color); color: var(--text-color); overflow-x: hidden; min-height: 100vh; display: flex; flex-direction: column; align-items: center; }
+        
+        /* Cegah scroll latar belakang saat menu terbuka */
+        body.no-scroll { overflow: hidden; }
 
         /* === LIQUID BACKGROUND BLOBS === */
         .liquid-bg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; overflow: hidden; }
@@ -55,7 +58,8 @@
             position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
             width: 95%; max-width: 1600px; padding: 15px 40px;
             display: flex; justify-content: space-between; align-items: center; 
-            z-index: 1000; border-radius: 50px;
+            z-index: 2000; /* Z-Index Tertinggi agar tidak kena blur overlay */
+            border-radius: 50px;
         }
 
         .nav-brand { display: flex; align-items: center; }
@@ -71,7 +75,7 @@
         .home-btn svg { width: 22px; height: 22px; fill: currentColor; }
         .home-btn:hover { color: var(--accent-color); transform: scale(1.1); border-color: var(--accent-color); }
 
-        .nav-actions { display: flex; align-items: center; gap: 15px; position: relative; z-index: 2001; }
+        .nav-actions { display: flex; align-items: center; gap: 15px; position: relative; }
 
         /* Tombol Download */
         .download-wrapper { position: relative; display: flex; align-items: center; }
@@ -92,7 +96,7 @@
             background: var(--accent-color); color: white; padding: 10px 16px; border-radius: 10px;
             font-size: 12px; font-weight: 700; letter-spacing: 1px; white-space: nowrap; opacity: 0; visibility: hidden;
             transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            box-shadow: 0 4px 15px rgba(255, 26, 26, 0.4); pointer-events: none;
+            box-shadow: 0 4px 15px rgba(255, 26, 26, 0.4); pointer-events: none; z-index: 2001;
         }
         .download-tooltip.show { opacity: 1; visibility: visible; transform: translateX(50%) translateY(0); }
         .download-tooltip::before {
@@ -106,7 +110,7 @@
             width: 42px; height: 42px; background: var(--glass-bg); border-radius: 50%;
             border: 1px solid var(--glass-border); cursor: pointer;
             box-shadow: 0 5px 15px var(--glass-shadow), var(--glass-inset);
-            transition: all 0.3s ease;
+            transition: all 0.3s ease; z-index: 2002;
         }
         .hamburger:hover { border-color: var(--accent-color); }
         .hamburger span {
@@ -117,44 +121,46 @@
         .hamburger.active span:nth-child(2) { opacity: 0; }
         .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); background: var(--accent-color); }
 
-        /* === OVERLAY BLUR SELURUH LAYAR === */
+        /* === OVERLAY BLUR TOTAL (DISEMPURNAKAN) === */
         .fullscreen-overlay {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: rgba(0, 0, 0, 0.6); 
-            backdrop-filter: blur(12px); 
-            -webkit-backdrop-filter: blur(12px);
-            opacity: 0; visibility: hidden;
-            transition: all 0.4s ease;
-            z-index: 1500; 
+            position: fixed; inset: 0; /* Mengcover seluruh layar */
+            background: radial-gradient(circle at top right, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.8) 100%);
+            backdrop-filter: blur(20px); /* Efek Blur Sangat Kuat */
+            -webkit-backdrop-filter: blur(20px);
+            opacity: 0; visibility: hidden; pointer-events: none;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1500; /* Berada di bawah Navigasi tapi di atas konten */
         }
-        .fullscreen-overlay.active { opacity: 1; visibility: visible; }
+        .fullscreen-overlay.active { opacity: 1; visibility: visible; pointer-events: auto; }
 
         /* === JENDELA MENGAMBANG SLIM & BOLD === */
         .floating-menu {
-            position: absolute; top: 70px; right: 20px; width: 240px; 
-            background: rgba(15, 15, 15, 0.8); border: 1px solid var(--glass-border);
-            border-radius: 12px; padding: 10px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.8), inset 0 1px 1px rgba(255,255,255,0.1);
-            opacity: 0; visibility: hidden; transform: translateY(-15px) scale(0.95);
-            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55); z-index: 1501; 
+            position: absolute; top: 65px; right: 0; width: 220px; /* Lebar lebih slim */
+            background: rgba(10, 10, 10, 0.7); border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px; padding: 8px; /* Padding dikurangi agar kompak */
+            box-shadow: 0 20px 40px rgba(0,0,0,0.9), inset 0 1px 1px rgba(255,255,255,0.15);
+            opacity: 0; visibility: hidden; transform: translateY(-20px) scale(0.95);
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); z-index: 2001; 
         }
         .floating-menu.active { opacity: 1; visibility: visible; transform: translateY(0) scale(1); }
+        
         .floating-menu ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 2px; }
         .floating-menu a {
-            display: block; padding: 12px 14px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;
-            color: var(--text-color); text-decoration: none; border-radius: 8px; transition: all 0.3s ease; cursor: pointer;
+            display: block; padding: 10px 12px; font-size: 11px; font-weight: 800; /* TULISAN BOLD/TEGAS */
+            text-transform: uppercase; letter-spacing: 1px; color: var(--text-color); text-decoration: none; 
+            border-radius: 8px; transition: all 0.3s ease; cursor: pointer;
         }
-        .floating-menu a:hover { background: rgba(255, 26, 26, 0.2); color: var(--accent-color); transform: translateX(5px); }
+        .floating-menu a:hover { background: rgba(255, 26, 26, 0.25); color: var(--accent-color); transform: translateX(4px); }
 
         .floating-menu .menu-label {
-            font-size: 10px; font-weight: 800; color: var(--accent-color); letter-spacing: 2px; text-transform: uppercase;
-            padding: 12px 14px 6px 14px; margin-top: 5px; border-top: 1px solid rgba(255,255,255,0.1); pointer-events: none;
+            font-size: 9px; font-weight: 800; color: var(--accent-color); letter-spacing: 3px; text-transform: uppercase;
+            padding: 12px 12px 4px 12px; margin-top: 4px; border-top: 1px solid rgba(255,255,255,0.1); pointer-events: none;
         }
-        .floating-menu .sub-link { font-size: 10px !important; font-weight: 700 !important; color: var(--text-muted) !important; padding-left: 20px !important; text-transform: none !important; letter-spacing: 0.5px !important; }
+        .floating-menu .sub-link { font-size: 10px !important; font-weight: 700 !important; color: #aaaaaa !important; padding-left: 18px !important; text-transform: none !important; letter-spacing: 0.5px !important; }
         .floating-menu .sub-link:hover { color: #ffffff !important; }
 
         /* === LAYOUT KONTEN UTAMA === */
-        main { padding: 140px 20px 50px 20px; max-width: 1400px; width: 100%; margin: 0 auto; display: flex; flex-direction: column; align-items: center; }
+        main { padding: 140px 20px 50px 20px; max-width: 1400px; width: 100%; margin: 0 auto; display: flex; flex-direction: column; align-items: center; z-index: 10; position: relative; }
         .page-content { display: none; width: 100%; max-width: 1200px; animation: fadeIn 0.6s ease forwards; padding: 60px 80px; }
         .page-content.active { display: block; }
 
@@ -163,7 +169,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* === BERANDA (Diperbarui dengan Fitur) === */
+        /* === BERANDA === */
         #beranda { display: none; flex-direction: column; justify-content: center; align-items: center; text-align: center; min-height: 75vh; border: none; box-shadow: none; background: transparent; padding: 0; }
         #beranda.active { display: flex; } 
         #beranda h1 { 
@@ -176,33 +182,15 @@
         #beranda p { font-size: 1.2rem; line-height: 1.8; text-align: center; color: var(--text-muted); font-weight: 400; max-width: 800px; margin-bottom: 50px; }
 
         /* KARTU FITUR DI BERANDA */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-            width: 100%;
-            max-width: 1000px;
-            margin-top: 20px;
-        }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; width: 100%; max-width: 1000px; margin-top: 20px; }
         .feature-card {
-            background: var(--sub-card-bg);
-            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 30px 20px;
-            text-align: center;
-            box-shadow: 0 10px 25px var(--glass-shadow), var(--glass-inset);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: var(--sub-card-bg); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border); border-radius: 20px; padding: 30px 20px; text-align: center;
+            box-shadow: 0 10px 25px var(--glass-shadow), var(--glass-inset); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
-        .feature-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--accent-color);
-            background: rgba(255, 26, 26, 0.05);
-        }
-        .feature-icon {
-            font-size: 2.5rem; margin-bottom: 15px; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.5));
-        }
+        .feature-card:hover { transform: translateY(-10px); border-color: var(--accent-color); background: rgba(255, 26, 26, 0.05); }
+        .feature-icon { font-size: 2.5rem; margin-bottom: 15px; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.5)); }
         .feature-title { font-size: 1.1rem; font-weight: 800; color: var(--text-color); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
         .feature-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; }
 
@@ -248,7 +236,7 @@
             .download-tooltip.show { transform: translateX(10%) translateY(0); }
             .download-tooltip::before { right: 25px; transform: none; }
 
-            .floating-menu { width: 220px; top: 60px; right: 15px; padding: 8px; }
+            .floating-menu { width: 200px; top: 55px; right: 0px; }
 
             main { padding-top: 110px; padding-bottom: 30px; } 
             .page-content { padding: 25px 20px; border-radius: 20px; }
@@ -277,7 +265,7 @@
         }
 
         @media (max-width: 480px) {
-            .features-grid { grid-template-columns: 1fr; } /* 1 Kolom jika HP sangat kecil */
+            .features-grid { grid-template-columns: 1fr; } 
         }
     </style>
 </head>
@@ -290,7 +278,7 @@
         <div class="blob"></div>
     </div>
 
-    <!-- === FULLSCREEN BLUR OVERLAY === -->
+    <!-- === FULLSCREEN BLUR OVERLAY (DISEMPURNAKAN) === -->
     <div class="fullscreen-overlay" id="blurOverlay"></div>
 
     <!-- Header / Navigasi -->
@@ -305,9 +293,9 @@
             </a>
         </div>
         
-        <!-- Grup Tombol Kanan (Download + Hamburger) -->
+        <!-- Grup Tombol Kanan -->
         <div class="nav-actions">
-            <!-- Tombol Download Makalah Langsung -->
+            <!-- Tombol Download -->
             <div class="download-wrapper">
                 <a href="https://drive.google.com/uc?export=download&id=1vVvbYAMsLlSIZqR6cwfmxew-UyDSTjZh" class="download-btn" title="Download Makalah" download>
                     <svg viewBox="0 0 24 24">
@@ -355,7 +343,6 @@
             <h3>Kelompok 2</h3>
             <p>Selamat datang di Media Edukasi Kajian tentang Gerak Dasar, Unsur, dan Klasifikasi Seni Tari karya kelompok 2.</p>
             
-            <!-- KEUNGGULAN WEBSITE (FITUR BARU) -->
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-icon">📄</div>
@@ -546,11 +533,14 @@
             const btn = document.getElementById('hamburgerBtn');
             const menu = document.getElementById('floatingMenu');
             const overlay = document.getElementById('blurOverlay');
+            const body = document.body;
 
-            // Cek kondisi saat ini lalu ubah (toggle)
             btn.classList.toggle('active');
             menu.classList.toggle('active');
             overlay.classList.toggle('active');
+            
+            // Kunci scroll saat menu terbuka
+            body.classList.toggle('no-scroll');
         }
 
         // Tutup menu jika user klik di area blur overlay
@@ -558,6 +548,7 @@
             document.getElementById('floatingMenu').classList.remove('active');
             document.getElementById('hamburgerBtn').classList.remove('active');
             this.classList.remove('active');
+            document.body.classList.remove('no-scroll');
         });
 
         // === FUNGSI PINDAH HALAMAN ===
@@ -572,6 +563,7 @@
             document.getElementById('hamburgerBtn').classList.remove('active');
             document.getElementById('floatingMenu').classList.remove('active');
             document.getElementById('blurOverlay').classList.remove('active');
+            document.body.classList.remove('no-scroll');
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
