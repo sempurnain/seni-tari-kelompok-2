@@ -58,7 +58,7 @@
             position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
             width: 95%; max-width: 1600px; padding: 15px 40px;
             display: flex; justify-content: space-between; align-items: center; 
-            z-index: 2000; /* Z-Index Tertinggi agar tidak kena blur overlay */
+            z-index: 2000; 
             border-radius: 50px;
         }
 
@@ -84,7 +84,7 @@
             width: 42px; height: 42px; background: var(--glass-bg); border-radius: 50%;
             border: 1px solid var(--glass-border); color: var(--text-color); text-decoration: none;
             box-shadow: 0 5px 15px var(--glass-shadow), var(--glass-inset);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; z-index: 2;
         }
         .download-btn:active { transform: scale(0.92); }
         .download-btn:hover { background-color: var(--accent-color); color: #ffffff; transform: translateY(-3px); box-shadow: 0 10px 20px rgba(255, 26, 26, 0.4); border-color: transparent; }
@@ -121,23 +121,23 @@
         .hamburger.active span:nth-child(2) { opacity: 0; }
         .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); background: var(--accent-color); }
 
-        /* === OVERLAY BLUR TOTAL (DISEMPURNAKAN) === */
+        /* === OVERLAY BLUR TOTAL === */
         .fullscreen-overlay {
-            position: fixed; inset: 0; /* Mengcover seluruh layar */
+            position: fixed; inset: 0; 
             background: radial-gradient(circle at top right, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.8) 100%);
-            backdrop-filter: blur(20px); /* Efek Blur Sangat Kuat */
+            backdrop-filter: blur(20px); 
             -webkit-backdrop-filter: blur(20px);
             opacity: 0; visibility: hidden; pointer-events: none;
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 1500; /* Berada di bawah Navigasi tapi di atas konten */
+            z-index: 1500; 
         }
         .fullscreen-overlay.active { opacity: 1; visibility: visible; pointer-events: auto; }
 
         /* === JENDELA MENGAMBANG SLIM & BOLD === */
         .floating-menu {
-            position: absolute; top: 65px; right: 0; width: 220px; /* Lebar lebih slim */
+            position: absolute; top: 65px; right: 0; width: 220px; 
             background: rgba(10, 10, 10, 0.7); border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 12px; padding: 8px; /* Padding dikurangi agar kompak */
+            border-radius: 12px; padding: 8px; 
             box-shadow: 0 20px 40px rgba(0,0,0,0.9), inset 0 1px 1px rgba(255,255,255,0.15);
             opacity: 0; visibility: hidden; transform: translateY(-20px) scale(0.95);
             transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); z-index: 2001; 
@@ -146,7 +146,7 @@
         
         .floating-menu ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 2px; }
         .floating-menu a {
-            display: block; padding: 10px 12px; font-size: 11px; font-weight: 800; /* TULISAN BOLD/TEGAS */
+            display: block; padding: 10px 12px; font-size: 11px; font-weight: 800; 
             text-transform: uppercase; letter-spacing: 1px; color: var(--text-color); text-decoration: none; 
             border-radius: 8px; transition: all 0.3s ease; cursor: pointer;
         }
@@ -236,7 +236,7 @@
             .download-tooltip.show { transform: translateX(10%) translateY(0); }
             .download-tooltip::before { right: 25px; transform: none; }
 
-            .floating-menu { width: 200px; top: 55px; right: 0px; }
+            .floating-menu { width: 220px; top: 60px; right: 15px; padding: 8px; }
 
             main { padding-top: 110px; padding-bottom: 30px; } 
             .page-content { padding: 25px 20px; border-radius: 20px; }
@@ -278,7 +278,7 @@
         <div class="blob"></div>
     </div>
 
-    <!-- === FULLSCREEN BLUR OVERLAY (DISEMPURNAKAN) === -->
+    <!-- === FULLSCREEN BLUR OVERLAY === -->
     <div class="fullscreen-overlay" id="blurOverlay"></div>
 
     <!-- Header / Navigasi -->
@@ -295,7 +295,7 @@
         
         <!-- Grup Tombol Kanan -->
         <div class="nav-actions">
-            <!-- Tombol Download -->
+            <!-- Tombol Download Makalah -->
             <div class="download-wrapper">
                 <a href="https://drive.google.com/uc?export=download&id=1vVvbYAMsLlSIZqR6cwfmxew-UyDSTjZh" class="download-btn" title="Download Makalah" download>
                     <svg viewBox="0 0 24 24">
@@ -400,37 +400,46 @@
         <!-- HALAMAN 4: PEMBAHASAN A -->
         <div id="gerak-dasar" class="page-content glass">
             <div class="content-wrapper">
-                <h2 class="section-title">🟢 A. Gerak Dasar Tari</h2>
-                <p>Gerak dasar tari adalah gerakan tubuh yang menjadi dasar dalam sebuah tarian. Gerakan dalam tari tidak hanya sekadar bergerak, tetapi merupakan cara penari untuk menyampaikan perasaan, ide, dan pesan kepada penonton. Jadi, gerakan tari bisa dianggap sebagai bahasa tubuh yang memiliki arti dan keindahan. Gerakan tersebut disusun dengan rapi sehingga terlihat indah, berirama, dan mudah dipahami.</p>
-                <p>Dalam seni tari, gerakan juga berfungsi sebagai alat komunikasi, artinya penari dapat “berbicara” kepada penonton melalui gerakan tubuhnya tanpa menggunakan kata-kata. Oleh karena itu, gerak dasar sangat penting karena menjadi fondasi utama dalam menciptakan dan mempelajari tarian.</p>
+                <h2 class="section-title">A. Gerak Dasar Tari</h2>
+                <p>Gerak dasar tari merupakan unsur fundamental yang menjadi landasan dalam pembentukan sebuah karya tari. Gerak dalam tari bukan sekadar aktivitas fisik, melainkan merupakan sarana ekspresi artistik yang mengandung nilai estetika, ritme, serta makna simbolik. Menurut Soedarsono, gerak tari merupakan ekspresi jiwa manusia yang diolah melalui unsur keindahan, ritme, serta penghayatan sehingga menghasilkan bentuk gerakan yang bermakna dan komunikatif (Soedarsono, 1977). Hal tersebut menunjukkan bahwa gerak tari memiliki fungsi tidak hanya sebagai media visual, tetapi juga sebagai sarana penyampaian pesan budaya dan emosi.</p>
+                <p>Dalam kajian seni tari, gerak dasar dibedakan menjadi beberapa jenis berdasarkan fungsi dan maknanya. Pengelompokan ini bertujuan untuk memudahkan pemahaman terhadap struktur dan karakter gerakan dalam suatu tarian. Secara umum, gerak dasar tari terdiri atas gerak murni dan gerak maknawi yang saling melengkapi dalam membentuk sebuah karya tari.</p>
 
                 <div class="sub-materi">
                     <h3>1. Gerak Murni</h3>
-                    <p>Gerak murni adalah gerakan tari yang dilakukan hanya untuk keindahan saja dan tidak memiliki arti khusus. Gerakan ini lebih menonjolkan keindahan bentuk, keluwesan tubuh, serta keseimbangan gerakan penari.</p>
-                    <p>Gerak murni biasanya digunakan untuk memperindah tarian dan membuat gerakan terlihat lebih menarik. Walaupun tidak memiliki makna tertentu, gerak ini tetap penting karena dapat memperkaya variasi gerakan dalam sebuah tarian. Contoh gerak murni antara lain putaran tangan yang halus, langkah kaki yang berirama, dan ayunan tubuh yang lembut. Dalam ilmu tari, gerak ini disebut juga gerak non-makna (non-representatif).</p>
+                    <p>Gerak murni adalah gerakan yang dilakukan semata-mata untuk menampilkan keindahan visual tanpa mengandung makna khusus. Gerakan ini lebih menitikberatkan pada unsur estetika, seperti keluwesan, keseimbangan, dan keharmonisan gerakan tubuh. Menurut Alma Hawkins, gerak dalam tari dapat berfungsi sebagai eksplorasi estetika yang bertujuan menampilkan keindahan bentuk dan kualitas gerakan tanpa harus menyampaikan pesan naratif tertentu (Hawkins, 1990).</p>
+                    <p>Gerak murni sering digunakan untuk memperkaya variasi gerakan dalam tarian serta memperkuat daya tarik visual pertunjukan. Beberapa contoh gerak murni antara lain:</p>
+                    <ul>
+                        <li>Putaran tangan yang menonjolkan kelenturan dan keindahan garis tubuh</li>
+                        <li>Gerakan langkah kaki yang ritmis dan beraturan</li>
+                        <li>Ayunan tubuh yang menunjukkan keluwesan serta kesinambungan gerak</li>
+                    </ul>
                 </div>
 
                 <div class="sub-materi">
-                    <h3>2. Gerak Maknawi</h3>
-                    <p>Gerak maknawi adalah gerakan tari yang memiliki arti atau pesan tertentu. Gerakan ini biasanya berasal dari kegiatan sehari-hari yang kemudian diolah atau dibentuk menjadi gerakan tari yang indah.</p>
-                    <p>Gerak maknawi berfungsi untuk menyampaikan cerita, pesan, atau nilai budaya kepada penonton. Oleh karena itu, gerakan ini sering digunakan dalam tarian yang memiliki cerita atau makna tertentu. Contohnya seperti gerakan menanam padi yang melambangkan kehidupan petani, gerakan menyapa yang menunjukkan sikap sopan santun, dan gerakan memetik bunga yang menggambarkan kelembutan. Gerak ini disebut juga gerak bermakna (representatif).</p>
+                    <h3>2. Gerakan Maknawi</h3>
+                    <p>Gerak maknawi adalah gerakan tari yang mengandung makna atau pesan tertentu. Gerakan ini biasanya bersumber dari aktivitas kehidupan sehari-hari yang kemudian mengalami proses stilisasi atau pengolahan artistik sehingga menjadi gerakan tari. Menurut Curt Sachs, gerak tari pada hakikatnya merupakan representasi kehidupan manusia yang diwujudkan melalui simbol gerak yang memiliki makna sosial dan budaya (Sachs, 1937).</p>
+                    <p>Gerak maknawi berfungsi sebagai sarana komunikasi dalam pertunjukan tari karena mampu menyampaikan cerita, pesan moral, maupun nilai-nilai budaya. Contoh gerak maknawi antara lain:</p>
+                    <ul>
+                        <li>Gerakan menanam padi yang melambangkan aktivitas agraris masyarakat</li>
+                        <li>Gerakan memetik bunga yang menggambarkan kelembutan dan keindahan</li>
+                        <li>Gerakan menyapa yang mencerminkan interaksi sosial dan penghormatan</li>
+                    </ul>
                 </div>
 
                 <div class="sub-materi">
                     <h3>3. Unsur Gerak Dasar Tari</h3>
-                    <p>Dalam tari, gerakan tidak berdiri sendiri, tetapi dipengaruhi oleh tiga unsur penting yaitu ruang, waktu, dan tenaga. Ketiga unsur ini saling bekerja sama untuk menciptakan gerakan yang indah dan bermakna.</p>
+                    <p>Gerak dalam seni tari tidak dapat dipisahkan dari unsur-unsur pendukung yang membentuk kualitas gerakan. Unsur-unsur tersebut meliputi ruang, waktu, dan tenaga yang saling berkaitan dalam menciptakan kesatuan gerak yang harmonis.</p>
                     
                     <h4>a. Ruang</h4>
-                    <p>Ruang adalah tempat penari bergerak. Ruang dibagi menjadi dua, yaitu ruang pribadi dan ruang panggung. Ruang pribadi adalah ruang yang digunakan oleh tubuh penari seperti gerakan tangan, kaki, dan badan. Sedangkan ruang panggung adalah tempat penari tampil.</p>
-                    <p>Ruang juga berfungsi untuk menentukan arah gerakan serta membentuk pola lantai seperti garis lurus, lingkaran, atau zig-zag. Dengan penggunaan ruang yang baik, tarian akan terlihat lebih rapi dan menarik.</p>
+                    <p>Ruang merupakan unsur yang berkaitan dengan tempat atau area yang digunakan penari untuk bergerak. Ruang dalam tari terbagi menjadi ruang pribadi dan ruang panggung. Ruang pribadi adalah ruang yang terbentuk dari jangkauan gerak tubuh penari, sedangkan ruang panggung merupakan area pertunjukan yang digunakan untuk menampilkan karya tari. Pemanfaatan ruang yang baik dapat menciptakan variasi pola lantai serta memperkuat daya ekspresi gerak tari.</p>
 
                     <h4>b. Waktu</h4>
-                    <p>Waktu dalam tari berkaitan dengan tempo (cepat atau lambat), ritme (irama gerakan), dan durasi (lama gerakan). Tempo dapat dibagi menjadi lambat, sedang, dan cepat.</p>
-                    <p>Pengaturan waktu sangat penting agar gerakan penari sesuai dengan musik pengiring. Jika waktu diatur dengan baik, maka tarian akan terlihat selaras dan enak dilihat.</p>
+                    <p>Waktu berkaitan dengan tempo, ritme, dan durasi gerakan tari. Pengaturan waktu yang tepat dapat menciptakan keselarasan antara gerakan penari dengan iringan musik. Tempo gerakan dapat bersifat lambat, sedang, maupun cepat sesuai dengan karakter tari yang ditampilkan. Ritme dalam tari berfungsi sebagai pengatur pola gerakan sehingga tercipta kesinambungan gerak yang terstruktur.</p>
 
                     <h4>c. Tenaga</h4>
-                    <p>Tenaga adalah kekuatan yang digunakan penari saat melakukan gerakan. Tenaga dapat berupa lembut, kuat, ringan, atau tegas.</p>
-                    <p>Penggunaan tenaga sangat memengaruhi ekspresi dan suasana tarian. Misalnya, gerakan yang lembut akan memberi kesan halus, sedangkan gerakan yang kuat akan memberi kesan tegas dan bersemangat.</p>
+                    <p>Tenaga merupakan unsur yang berhubungan dengan intensitas atau kekuatan yang digunakan dalam melakukan gerakan tari. Penggunaan tenaga dapat menghasilkan kualitas gerak yang berbeda, seperti gerakan lembut, kuat, ringan, maupun tegas. Variasi penggunaan tenaga berperan penting dalam menampilkan ekspresi dan dinamika dalam pertunjukan tari.</p>
+
+                    <p style="margin-top: 15px;">Dengan memahami gerak dasar tari beserta unsur-unsur pendukungnya, seseorang dapat lebih mudah mempelajari, menciptakan, maupun mengapresiasi karya seni tari secara menyeluruh. Penguasaan gerak dasar menjadi langkah awal dalam mengembangkan kemampuan teknik dan ekspresi dalam seni tari.</p>
                 </div>
             </div>
         </div>
@@ -438,42 +447,46 @@
         <!-- HALAMAN 5: PEMBAHASAN B -->
         <div id="unsur-tari" class="page-content glass">
             <div class="content-wrapper">
-                <h2 class="section-title">🟢 B. Unsur-Unsur Tari</h2>
-                <p>Unsur tari adalah bagian-bagian penting yang membentuk sebuah tarian sehingga menjadi utuh dan indah. Unsur-unsur ini saling berhubungan dan tidak dapat dipisahkan karena bersama-sama menciptakan tarian yang menarik dan bermakna.</p>
+                <h2 class="section-title">B. Unsur-Unsur Tari</h2>
+                <p>Unsur tari merupakan komponen utama yang membentuk suatu pertunjukan tari sehingga memiliki kesatuan makna, nilai estetika, serta fungsi komunikasi. Unsur-unsur tersebut saling berkaitan dan tidak dapat dipisahkan karena berperan dalam menciptakan keharmonisan antara gerakan, ekspresi, dan pendukung pertunjukan. Menurut Edi Sedyawati, sebuah tarian dapat dikatakan utuh apabila mampu memadukan unsur gerak, irama, penghayatan, serta unsur pendukung pertunjukan yang menyatu dalam satu kesatuan artistik (Sedyawati, 1986). Adapun unsur-unsur tari meliputi wiraga, wirama, wirasa, tata rias, tata busana, iringan tari, serta properti tari.</p>
 
                 <div class="sub-materi">
                     <h3>1. Wiraga (Raga)</h3>
-                    <p>Wiraga adalah kemampuan penari dalam menggerakkan tubuh dengan baik dan benar. Gerakan harus terlihat jelas, luwes, seimbang, dan sesuai dengan teknik tari. Wiraga sangat penting karena tubuh penari adalah alat utama dalam menampilkan tarian. Jika gerakan penari baik, maka tarian akan terlihat indah dan mudah dipahami.</p>
+                    <p>Wiraga merupakan unsur tari yang berkaitan dengan kemampuan penari dalam menggerakkan tubuh sesuai dengan teknik dan kaidah tari. Unsur ini menekankan ketepatan gerakan, keluwesan, keseimbangan, serta penguasaan teknik tubuh dalam menampilkan suatu tarian. Wiraga menjadi dasar dalam menampilkan kualitas visual gerakan sehingga penari mampu menyampaikan bentuk gerakan secara jelas dan indah.</p>
+                    <p>Menurut Sumandiyo Hadi, penguasaan teknik tubuh dalam tari sangat penting karena tubuh penari merupakan media utama dalam menyampaikan gagasan artistik. Penari yang memiliki penguasaan wiraga yang baik akan mampu menampilkan gerakan yang terstruktur, harmonis, serta sesuai dengan karakter tarian (Hadi, 2007).</p>
                 </div>
 
                 <div class="sub-materi">
                     <h3>2. Wirama (Irama)</h3>
-                    <p>Wirama adalah kesesuaian antara gerakan tari dengan irama musik. Gerakan penari harus mengikuti tempo dan ketukan musik agar terlihat selaras. Jika gerakan dan musik tidak sesuai, maka tarian akan terlihat kurang rapi. Oleh karena itu, wirama membantu menciptakan keselarasan antara gerak dan musik.</p>
+                    <p>Wirama merupakan keselarasan antara gerakan tari dengan iringan musik atau ritme yang mengiringinya. Unsur ini berhubungan dengan pengaturan tempo, ketukan, serta dinamika gerakan sehingga gerakan tari terlihat selaras dengan musik pengiring.</p>
+                    <p>Menurut Judith Lynne Hanna, kesesuaian antara gerakan tari dengan ritme musik berfungsi memperkuat penyampaian pesan emosional dalam pertunjukan tari. Ritme membantu penari dalam mengatur alur gerakan serta menciptakan kesinambungan antar gerakan (Hanna, 1987). Dengan demikian, wirama berperan penting dalam menciptakan kesatuan antara gerak dan iringan.</p>
                 </div>
 
                 <div class="sub-materi">
                     <h3>3. Wirasa (Rasa)</h3>
-                    <p>Wirasa adalah kemampuan penari dalam menjiwai dan mengekspresikan perasaan dalam tarian. Penari harus bisa menunjukkan emosi seperti senang, sedih, atau semangat melalui gerakan dan ekspresi wajah. Wirasa sangat penting agar penonton dapat merasakan pesan yang disampaikan dalam tarian.</p>
+                    <p>Wirasa merupakan unsur tari yang berkaitan dengan penghayatan, ekspresi, serta kemampuan penari dalam menyampaikan makna dan emosi dalam tarian. Unsur ini menekankan pada kemampuan penari dalam menjiwai karakter tari sehingga pesan yang ingin disampaikan dapat diterima oleh penonton. Menurut Bagong Kussudiardja, tari bukan hanya persoalan teknik gerak, tetapi juga merupakan proses pengungkapan perasaan dan pengalaman batin melalui ekspresi tubuh. Penari yang mampu menguasai wirasa akan dapat membangun komunikasi emosional dengan penonton sehingga pertunjukan tari menjadi lebih hidup dan bermakna (Kussudiardja, 1993).</p>
                 </div>
 
                 <div class="sub-materi">
                     <h3>4. Tata Rias</h3>
-                    <p>Tata rias adalah riasan wajah yang digunakan penari untuk memperjelas karakter dan memperindah penampilan. Tata rias membantu penonton memahami peran yang dimainkan oleh penari.</p>
+                    <p>Tata rias merupakan unsur pendukung tari yang berfungsi memperjelas karakter, memperkuat ekspresi, serta menyesuaikan penampilan penari dengan tema tarian. Tata rias tidak hanya bertujuan memperindah penampilan, tetapi juga membantu penonton dalam memahami karakter yang diperankan oleh penari. Menurut Sal Murgiyanto, tata rias dalam seni pertunjukan berfungsi sebagai media visual yang membantu membangun identitas tokoh serta memperkuat nilai dramatik dalam sebuah pertunjukan tari (Murgiyanto, 2004).</p>
                 </div>
 
                 <div class="sub-materi">
                     <h3>5. Tata Busana</h3>
-                    <p>Tata busana adalah pakaian yang dikenakan penari saat tampil. Busana biasanya disesuaikan dengan tema dan budaya tarian. Busana tidak hanya memperindah penampilan, tetapi juga menunjukkan identitas dan ciri khas suatu tarian.</p>
+                    <p>Tata busana merupakan kostum yang digunakan penari dalam pertunjukan tari. Busana tari berfungsi untuk memperindah penampilan penari sekaligus memperkuat tema, karakter, serta identitas budaya yang ditampilkan dalam tarian. Menurut Sumandiyo Hadi, busana tari memiliki peranan penting dalam membangun suasana pertunjukan serta memberikan identitas visual terhadap jenis tarian yang ditampilkan. Pemilihan warna, bentuk, dan ornamen busana dapat mempengaruhi kesan estetika dan simbolik dalam pertunjukan tari (Hadi, 2007).</p>
                 </div>
 
                 <div class="sub-materi">
                     <h3>6. Iringan Tari</h3>
-                    <p>Iringan tari adalah musik atau suara yang mengiringi tarian. Iringan berfungsi untuk mengatur tempo, menciptakan suasana, dan membantu penari mengikuti ritme gerakan. Iringan bisa berupa musik tradisional, modern, atau suara lainnya.</p>
+                    <p>Iringan tari merupakan unsur yang berfungsi sebagai pengatur ritme, suasana, serta dinamika dalam pertunjukan tari. Iringan tari dapat berupa musik tradisional, musik modern, vokal, maupun suara alam yang disesuaikan dengan karakter tarian. Menurut Judith Lynne Hanna, iringan dalam tari memiliki fungsi sebagai penguat ekspresi gerakan serta membantu penonton dalam memahami alur cerita dan suasana yang disampaikan dalam pertunjukan tari (Hanna, 1987). Iringan tari juga membantu penari dalam menjaga konsistensi tempo dan pola gerakan.</p>
                 </div>
 
                 <div class="sub-materi">
                     <h3>7. Properti Tari</h3>
-                    <p>Properti tari adalah alat bantu yang digunakan dalam tarian, seperti kipas, selendang, payung, atau pedang. Properti digunakan untuk memperindah gerakan dan memperkuat makna dalam tarian.</p>
+                    <p>Properti tari merupakan alat bantu yang digunakan penari untuk mendukung penyampaian makna, memperindah gerakan, serta memperkuat karakter tarian. Properti tari dapat berupa kipas, selendang, payung, pedang, maupun alat lainnya yang disesuaikan dengan konsep tarian. Menurut Sal Murgiyanto, penggunaan properti dalam tari tidak hanya berfungsi sebagai pelengkap visual, tetapi juga sebagai simbol yang mengandung makna tertentu sesuai dengan konteks budaya dan cerita yang disampaikan dalam pertunjukan tari (Murgiyanto, 2004).</p>
+                    
+                    <p style="margin-top: 15px;">Dengan memahami unsur-unsur tari secara menyeluruh, seseorang dapat lebih mudah memahami struktur pertunjukan tari serta mampu menciptakan karya tari yang memiliki nilai estetika, makna, dan kesatuan artistik. Unsur-unsur tersebut saling mendukung dalam membentuk sebuah pertunjukan tari yang utuh dan komunikatif.</p>
                 </div>
             </div>
         </div>
@@ -481,35 +494,39 @@
         <!-- HALAMAN 6: PEMBAHASAN C -->
         <div id="jenis-tari" class="page-content glass">
             <div class="content-wrapper">
-                <h2 class="section-title">🟢 C. Jenis-Jenis Tari</h2>
-                <p>Jenis-jenis tari adalah pengelompokan tarian berdasarkan fungsi, jumlah penari, dan gaya atau bentuknya. Hal ini membantu kita memahami berbagai macam tarian yang ada di masyarakat.</p>
+                <h2 class="section-title">C. Jenis-Jenis Tari</h2>
+                <p>Jenis-jenis tari merupakan pengelompokan bentuk tari berdasarkan karakteristik, fungsi, serta latar belakang budaya yang melatarbelakanginya. Pengklasifikasian ini bertujuan untuk memudahkan pemahaman terhadap keragaman seni tari yang berkembang di masyarakat. Menurut Soedarsono, tari dapat diklasifikasikan berdasarkan fungsi sosial, bentuk penyajian, serta perkembangan gaya yang dipengaruhi oleh perubahan budaya dan zaman (Soedarsono, 1977). Adapun jenis-jenis tari dapat diklasifikasikan sebagai berikut:</p>
 
                 <div class="sub-materi">
                     <h3>1. Berdasarkan Fungsinya</h3>
-                    <p>Tari dapat dibedakan berdasarkan tujuan atau fungsinya dalam kehidupan masyarakat.</p>
+                    <p>Pengelompokan tari berdasarkan fungsi berkaitan dengan tujuan dan peran tari dalam kehidupan masyarakat.</p>
                     <ul>
-                        <li><strong>Tari upacara</strong> adalah tarian yang digunakan dalam kegiatan adat atau keagamaan dan bersifat sakral. Tarian ini biasanya mengikuti aturan tertentu dan tidak boleh diubah sembarangan.</li>
-                        <li><strong>Tari hiburan</strong> adalah tarian yang bertujuan untuk menghibur penonton. Gerakannya lebih bebas dan mudah dinikmati.</li>
-                        <li><strong>Tari pertunjukan</strong> adalah tarian yang dipentaskan di atas panggung dengan persiapan yang matang, seperti latihan, kostum, dan tata panggung.</li>
+                        <li><strong>Tari upacara:</strong> Tari upacara merupakan tarian yang digunakan dalam kegiatan adat, ritual, maupun keagamaan. Tari ini biasanya memiliki nilai sakral dan berkaitan dengan kepercayaan masyarakat setempat. Gerakan, kostum, serta iringan tari upacara biasanya mengikuti aturan adat tertentu dan tidak dapat diubah secara sembarangan. Menurut Edi Sedyawati, tari upacara berfungsi sebagai media komunikasi antara manusia dengan kekuatan spiritual atau sebagai bagian dari tradisi ritual masyarakat yang diwariskan secara turun-temurun (Sedyawati, 1986).</li>
+                        <li><strong>Tari hiburan:</strong> Tari hiburan merupakan tarian yang bertujuan memberikan kesenangan dan hiburan kepada penonton. Tari jenis ini biasanya memiliki gerakan yang lebih bebas dan bersifat komunikatif sehingga mudah dinikmati oleh masyarakat luas. Menurut Sal Murgiyanto, tari hiburan berkembang sebagai bentuk seni pertunjukan yang menyesuaikan dengan kebutuhan masyarakat modern, sehingga lebih menekankan pada unsur estetika dan daya tarik visual (Murgiyanto, 2004).</li>
+                        <li><strong>Tari pertunjukan:</strong> Tari pertunjukan merupakan tarian yang secara khusus dipentaskan di atas panggung sebagai karya seni yang memiliki nilai artistik tinggi. Tari jenis ini biasanya dipersiapkan secara matang melalui proses latihan, pengaturan tata panggung, tata rias, serta tata busana. Menurut Soedarsono, tari pertunjukan merupakan bentuk seni yang berorientasi pada penyajian estetika dan komunikasi artistik antara penari dan penonton melalui konsep koreografi yang terstruktur (Soedarsono, 1977).</li>
                     </ul>
                 </div>
 
                 <div class="sub-materi">
                     <h3>2. Berdasarkan Jumlah Penari</h3>
+                    <p>Pengelompokan tari berdasarkan jumlah penari berkaitan dengan jumlah individu yang menampilkan suatu tarian.</p>
                     <ul>
-                        <li><strong>Tari tunggal</strong> adalah tarian yang dibawakan oleh satu orang penari. Penari harus memiliki kemampuan yang baik karena tampil sendiri.</li>
-                        <li><strong>Tari berpasangan</strong> adalah tarian yang dibawakan oleh dua penari. Tarian ini membutuhkan kerja sama dan kekompakan.</li>
-                        <li><strong>Tari kelompok</strong> adalah tarian yang dibawakan oleh lebih dari dua penari. Tarian ini menekankan kekompakan dan pola lantai yang rapi.</li>
+                        <li><strong>Tari tunggal:</strong> Merupakan tarian yang dibawakan oleh satu orang penari. Tari jenis ini menuntut kemampuan teknik, ekspresi, serta penguasaan panggung yang baik karena seluruh perhatian penonton tertuju pada satu penari. Menurut Sumandiyo Hadi, tari tunggal menekankan pada kemampuan individu dalam mengolah gerak, ekspresi, serta interpretasi terhadap karakter tari (Hadi, 2007).</li>
+                        <li><strong>Tari berpasangan:</strong> Tari berpasangan merupakan tarian yang dilakukan oleh dua penari. Tari ini biasanya menampilkan interaksi gerak antara kedua penari sehingga membutuhkan keselarasan gerakan, tempo, serta ekspresi. Tari berpasangan sering digunakan untuk menggambarkan hubungan sosial, seperti persahabatan, percintaan, atau kerja sama antarindividu.</li>
+                        <li><strong>Tari kelompok:</strong> Tari kelompok merupakan tarian yang dilakukan oleh lebih dari dua penari. Tari jenis ini menekankan pada kekompakan, keseragaman gerak, serta pola lantai yang terstruktur. Menurut Sumandiyo Hadi, tari kelompok memiliki kekuatan visual yang lebih kompleks karena melibatkan komposisi ruang, variasi pola gerak, serta koordinasi antar penari yang harmonis (Hadi, 2007).</li>
                     </ul>
                 </div>
 
                 <div class="sub-materi">
-                    <h3>3. Berdasarkan Gaya</h3>
+                    <h3>3. Berdasarkan Aliran atau Gaya</h3>
+                    <p>Pengelompokan tari berdasarkan aliran atau gaya berkaitan dengan perkembangan bentuk tari yang dipengaruhi oleh budaya dan perubahan zaman.</p>
                     <ul>
-                        <li><strong>Tari tradisional</strong> adalah tarian yang berasal dari budaya daerah dan diwariskan secara turun-temurun.</li>
-                        <li><strong>Tari kreasi baru</strong> adalah tarian yang merupakan pengembangan dari tari tradisional dengan tambahan inovasi baru.</li>
-                        <li><strong>Tari modern/kontemporer</strong> adalah tarian yang lebih bebas dan mengikuti perkembangan zaman.</li>
+                        <li><strong>Tari tradisional:</strong> Tari tradisional merupakan tarian yang berkembang secara turun-temurun dalam suatu masyarakat dan memiliki aturan serta nilai budaya tertentu. Tari tradisional biasanya mencerminkan identitas budaya daerah serta diwariskan melalui proses pembelajaran secara generasi ke generasi. Menurut Edi Sedyawati, tari tradisional merupakan bagian dari warisan budaya yang memiliki fungsi sosial dan nilai simbolik dalam kehidupan masyarakat (Sedyawati, 1986).</li>
+                        <li><strong>Tari kreasi baru:</strong> Tari kreasi baru merupakan bentuk pengembangan dari tari tradisional yang mengalami inovasi tanpa menghilangkan unsur budaya aslinya. Tari ini biasanya menggabungkan unsur tradisional dengan kreativitas koreografer sehingga menghasilkan bentuk tari yang lebih variatif. Menurut Sal Murgiyanto, tari kreasi baru muncul sebagai bentuk adaptasi seni tari terhadap perkembangan zaman, namun tetap mempertahankan nilai budaya yang menjadi sumber inspirasinya (Murgiyanto, 2004).</li>
+                        <li><strong>Tari modern atau kontemporer:</strong> Tari modern atau kontemporer merupakan tarian yang berkembang sesuai dengan perubahan sosial dan budaya masyarakat modern. Tari jenis ini cenderung lebih bebas dalam penggunaan gerak, tema, maupun bentuk penyajiannya. Menurut Sumandiyo Hadi, tari kontemporer merupakan bentuk ekspresi seni tari yang bersifat eksperimental dan terbuka terhadap berbagai pengaruh budaya serta perkembangan seni modern (Hadi, 2007).</li>
                     </ul>
+                    
+                    <p style="margin-top: 15px;">Dengan memahami klasifikasi jenis-jenis tari, seseorang dapat mengenali keragaman bentuk seni tari serta memahami fungsi, struktur, dan perkembangan tari dalam kehidupan masyarakat. Pengelompokan tersebut juga membantu dalam proses pembelajaran, penciptaan, serta pelestarian seni tari sebagai bagian dari warisan budaya.</p>
                 </div>
             </div>
         </div>
